@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb4936f1161fbe7d16cfe44214e72112",
+    "content-hash": "e5215d9973a4183dd6042986fe4c0c0f",
     "packages": [
         {
             "name": "alsofronie/eloquent-uuid",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alsofronie/eloquent-uuid.git",
-                "reference": "7edc7310dddf1425817b91af829d102277300ff6"
+                "reference": "339cb57681bfa270c3860751b17a3e7c06014adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alsofronie/eloquent-uuid/zipball/7edc7310dddf1425817b91af829d102277300ff6",
-                "reference": "7edc7310dddf1425817b91af829d102277300ff6",
+                "url": "https://api.github.com/repos/alsofronie/eloquent-uuid/zipball/339cb57681bfa270c3860751b17a3e7c06014adf",
+                "reference": "339cb57681bfa270c3860751b17a3e7c06014adf",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 }
             ],
             "description": "A Laravel Eloquent Model trait for using UUID's as primary keys",
-            "time": "2018-03-19T08:05:23+00:00"
+            "time": "2019-04-02T10:30:47+00:00"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -2177,16 +2177,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
                 "shasum": ""
             },
             "require": {
@@ -2198,7 +2198,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -2232,7 +2232,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21T13:07:52+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -2851,25 +2851,29 @@
         },
         {
             "name": "laravel/homestead",
-            "version": "v3.1.0",
+            "version": "v8.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/homestead.git",
-                "reference": "7924ab4e27bbeb17dadcc2fc6a40659275bbfb0a"
+                "reference": "2be0226dba48ce7a5187f27b27acaadf7b9ddba1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/homestead/zipball/7924ab4e27bbeb17dadcc2fc6a40659275bbfb0a",
-                "reference": "7924ab4e27bbeb17dadcc2fc6a40659275bbfb0a",
+                "url": "https://api.github.com/repos/laravel/homestead/zipball/2be0226dba48ce7a5187f27b27acaadf7b9ddba1",
+                "reference": "2be0226dba48ce7a5187f27b27acaadf7b9ddba1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9",
-                "symfony/console": "~2.3|~3.0",
-                "symfony/process": "~2.3|~3.0"
+                "php": "^7.1",
+                "symfony/console": "~3.0||~4.0",
+                "symfony/process": "~3.0||~4.0",
+                "symfony/yaml": "~3.0||~4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
             },
             "bin": [
-                "homestead"
+                "bin/homestead"
             ],
             "type": "library",
             "extra": {
@@ -2893,7 +2897,7 @@
                 }
             ],
             "description": "A virtual machine for web artisans.",
-            "time": "2016-11-29T16:43:51+00:00"
+            "time": "2019-05-26T00:33:25+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -3549,6 +3553,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
