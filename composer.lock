@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb4936f1161fbe7d16cfe44214e72112",
+    "content-hash": "dae279e81ad2fc7c97689945ca42eb98",
     "packages": [
         {
             "name": "alsofronie/eloquent-uuid",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/alsofronie/eloquent-uuid.git",
-                "reference": "7edc7310dddf1425817b91af829d102277300ff6"
+                "reference": "339cb57681bfa270c3860751b17a3e7c06014adf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alsofronie/eloquent-uuid/zipball/7edc7310dddf1425817b91af829d102277300ff6",
-                "reference": "7edc7310dddf1425817b91af829d102277300ff6",
+                "url": "https://api.github.com/repos/alsofronie/eloquent-uuid/zipball/339cb57681bfa270c3860751b17a3e7c06014adf",
+                "reference": "339cb57681bfa270c3860751b17a3e7c06014adf",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 }
             ],
             "description": "A Laravel Eloquent Model trait for using UUID's as primary keys",
-            "time": "2018-03-19T08:05:23+00:00"
+            "time": "2019-04-02T10:30:47+00:00"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -438,16 +438,16 @@
         },
         {
             "name": "fideloper/proxy",
-            "version": "3.3.4",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fideloper/TrustedProxy.git",
-                "reference": "9cdf6f118af58d89764249bbcc7bb260c132924f"
+                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/9cdf6f118af58d89764249bbcc7bb260c132924f",
-                "reference": "9cdf6f118af58d89764249bbcc7bb260c132924f",
+                "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
+                "reference": "177c79a2d1f9970f89ee2fb4c12b429af38b6dfb",
                 "shasum": ""
             },
             "require": {
@@ -455,15 +455,12 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "illuminate/http": "~5.0",
-                "mockery/mockery": "~0.9.3",
-                "phpunit/phpunit": "^5.7"
+                "illuminate/http": "~5.6",
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "^6.0"
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3-dev"
-                },
                 "laravel": {
                     "providers": [
                         "Fideloper\\Proxy\\TrustedProxyServiceProvider"
@@ -491,7 +488,7 @@
                 "proxy",
                 "trusted proxy"
             ],
-            "time": "2017-06-15T17:19:42+00:00"
+            "time": "2019-01-10T14:06:47+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -3549,6 +3546,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
