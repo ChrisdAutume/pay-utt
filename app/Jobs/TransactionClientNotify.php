@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Facades\PaymentLoader;
 use App\Jobs\Job;
+use App\Models\RefundTransaction;
 use App\Models\Transaction;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,6 +36,11 @@ class TransactionClientNotify extends Job implements ShouldQueue
     public function handle(Transaction $transaction)
     {
         $transaction = $this->transaction;
+
+        // Si refund pas de notification
+        if ($transaction instanceof RefundTransaction) {
+            return true;
+        }
         // On fait la transaction
         $client = new Client();
         $payload = PaymentLoader::encryptFromService($transaction->service, $transaction->callbackReturn());
