@@ -96,7 +96,7 @@ class PaylineProvider implements PaymentGateway
 
     public function doRefund(RefundTransaction $transaction)
     {
-        if(is_object($transaction->parent)) {
+        if (is_object($transaction->parent)) {
             $id = $transaction->parent->bank_transaction_id;
         } else {
             $id = $transaction->parent()->first()->bank_transaction_id;
@@ -106,7 +106,7 @@ class PaylineProvider implements PaymentGateway
 
             $param = [];
             $param['transactionID'] = $tr['transaction']['id'];
-            $param['payment']['amount'] = $tr['payment']['amount'];
+            $param['payment']['amount'] = $transaction->amount;
             $param['payment']['currency'] = 978;
             $param['payment']['mode'] = 'CPT';
             $param['payment']['action'] = 421;

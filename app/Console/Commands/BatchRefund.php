@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\PaymentProvider\PaylineProvider;
+use App\Models\ImmediateTransaction;
+use App\Models\Transaction;
 use Illuminate\Console\Command;
 
 class BatchRefund extends Command
@@ -38,18 +39,27 @@ class BatchRefund extends Command
      */
     public function handle()
     {
-        $p = new PaylineProvider();
+        $this->info("Outils pour procéder a un remboursement de masse");
+        $ids = $this->ask("Numéro de transactions (séparé par une virgule , )");
+        $ids = explode(',', $ids);
 
-        $ids = [];
-        foreach ($ids as $id)
-        {
-            $tr = $p->doRefund($id);
-            if (!$tr or $tr['result']['code'] != '00000')
-            {
-                $this->error('Refund of transaction '.$id.' failed.');
-                dd($tr);
-            } else $this->info('Transaction '.$id.' refunded.');
+        $this->info(count($ids) . ' transactions rentrée');
 
+        foreach ($ids as $id) {
+            $id = intval($id);
+            $tr = Transaction::find($id);
+
+            if ($tr) {
+                if ($tr->getSolde() > 0 && $tr instanceof ImmediateTransaction) {
+                    if ($tr->doRefund($tr->getSolde())) {
+                        $this->info(' #' . $id . ' solde: ' . round($tr->getSolde() / 100, 2) . ' € remboursé !');
+                    } else {
+                        $this->error(' #' . $id . ' solde: ' . round($tr->getSolde() / 100, 2) . ' € ERREUR !');
+                    }
+                }
+            } else {
+                $this->error(' #' . $id . ' INCONNU');
+            }
         }
     }
 }

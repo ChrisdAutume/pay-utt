@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 class ImmediateTransaction extends Transaction
@@ -38,7 +37,7 @@ class ImmediateTransaction extends Transaction
      * @param integer $amount
      * @return boolean
      */
-    public function doRefund(int $amount): bool
+    public function doRefund(float $amount): bool
     {
         $amount = intval($amount);
         if ($amount <= 0 || $amount > $this->getSolde()) {
@@ -48,7 +47,7 @@ class ImmediateTransaction extends Transaction
         if ($this->step != 'PAID') {
             return false;
         }
-        
+
         $refund_tr = new RefundTransaction();
 
         if (!$this->parent) {
@@ -60,8 +59,7 @@ class ImmediateTransaction extends Transaction
         $refund_tr->amount = $amount;
         $refund_tr->save();
 
-        if($this->getProvider()->doRefund($refund_tr))
-        {
+        if ($this->getProvider()->doRefund($refund_tr)) {
             return true;
         }
 
