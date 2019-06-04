@@ -32,7 +32,7 @@ class Transaction extends Model implements Transformable
      * @param integer $amount
      * @return boolean
      */
-    public function doRefund(int $amount): bool
+    public function doRefund(float $amount): bool
     {
         return false;
     }
