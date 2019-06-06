@@ -31,15 +31,15 @@ $(document).ready(function(){
 		  rules: {
 		    firstname: {
 		      required: true,
-		      minlength: 3
+		      minlength: 2
 		    },
 		    lastname: {
 		      required: true,
-		      minlength: 3
+		      minlength: 2
 		    },
 		    client_mail: {
 		      required: true,
-		      minlength: 3,
+		      email: true,
 		    }
         },
 
