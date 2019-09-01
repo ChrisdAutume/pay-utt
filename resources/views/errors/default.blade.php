@@ -12,10 +12,10 @@
 	<link rel="icon" type="image/png" href="{{ @asset('favicon.ico') }}" />
 </head>
 <body class="bg-purple">
-        
+
         <div class="stars">
             <div class="central-body">
-                    <img class="image-logo" src="{{ @asset('images/logo.png') }}" width="200px"> 
+                    <img class="image-logo" src="{{ @asset('images/logo.png') }}" width="200px">
                     <img class="image-404" src="{{ @asset('images/errors/404.svg') }}" width="300px">
             </div>
             <div class="objects">
@@ -38,6 +38,6 @@
             </div>
 
         </div>
-
+<!-- {{ $e->getStatusCode() }} - {{ $e->getMessage() }}-->
     </body>
     </html>
