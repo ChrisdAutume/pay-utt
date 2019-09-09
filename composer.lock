@@ -1260,16 +1260,16 @@
         },
         {
             "name": "monext/payline-sdk",
-            "version": "4.55.3",
+            "version": "4.59.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PaylineByMonext/payline-php-sdk.git",
-                "reference": "2d0e1a700b70f129c09f4d118b4c717d17067189"
+                "reference": "d239155e7d630bc48880025ff1f9288e170a150b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PaylineByMonext/payline-php-sdk/zipball/2d0e1a700b70f129c09f4d118b4c717d17067189",
-                "reference": "2d0e1a700b70f129c09f4d118b4c717d17067189",
+                "url": "https://api.github.com/repos/PaylineByMonext/payline-php-sdk/zipball/d239155e7d630bc48880025ff1f9288e170a150b",
+                "reference": "d239155e7d630bc48880025ff1f9288e170a150b",
                 "shasum": ""
             },
             "require": {
@@ -1302,20 +1302,20 @@
                 "Payline",
                 "payment"
             ],
-            "time": "2019-05-09T08:36:32+00:00"
+            "time": "2019-09-07T06:23:21+00:00"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -1380,7 +1380,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "mpociot/documentarian",
@@ -4567,18 +4567,18 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 },
                 {
                     "name": "Sebastian Heuer",
-                    "email": "sebastian@phpeople.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpeople.de"
                 },
                 {
                     "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "sebastian@phpunit.de"
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
@@ -5169,8 +5169,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
@@ -5781,8 +5781,8 @@
             "authors": [
                 {
                     "name": "Arne Blankerts",
-                    "email": "arne@blankerts.de",
-                    "role": "Developer"
+                    "role": "Developer",
+                    "email": "arne@blankerts.de"
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
