@@ -1260,23 +1260,23 @@
         },
         {
             "name": "monext/payline-sdk",
-            "version": "4.55.3",
+            "version": "4.59.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PaylineByMonext/payline-php-sdk.git",
-                "reference": "2d0e1a700b70f129c09f4d118b4c717d17067189"
+                "reference": "d3f0862b1f36f38f5069f6c6fc17c95b1abba8eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PaylineByMonext/payline-php-sdk/zipball/2d0e1a700b70f129c09f4d118b4c717d17067189",
-                "reference": "2d0e1a700b70f129c09f4d118b4c717d17067189",
+                "url": "https://api.github.com/repos/PaylineByMonext/payline-php-sdk/zipball/d3f0862b1f36f38f5069f6c6fc17c95b1abba8eb",
+                "reference": "d3f0862b1f36f38f5069f6c6fc17c95b1abba8eb",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-soap": "*",
-                "monolog/monolog": "1.*",
+                "monolog/monolog": "1.* || ~2.0",
                 "php": ">=5.3.0"
             },
             "type": "library",
@@ -1302,20 +1302,20 @@
                 "Payline",
                 "payment"
             ],
-            "time": "2019-05-09T08:36:32+00:00"
+            "time": "2019-10-20T12:36:07+00:00"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -1380,7 +1380,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "mpociot/documentarian",
@@ -5169,8 +5169,8 @@
             "authors": [
                 {
                     "name": "Sebastian Bergmann",
-                    "role": "lead",
-                    "email": "sebastian@phpunit.de"
+                    "email": "sebastian@phpunit.de",
+                    "role": "lead"
                 }
             ],
             "description": "The PHP Unit Testing framework.",
