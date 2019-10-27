@@ -13,7 +13,7 @@ class paylineCheck extends Command
      *
      * @var string
      */
-    protected $signature = 'payline:check {--id=* : payline transaction id to force reconciliate}';
+    protected $signature = 'payline:check {--id=* : payline transaction id to force reconciliate} {--start= : payline transaction start date \'Y-m-d\'}';
 
     /**
      * The console command description.
@@ -64,7 +64,13 @@ class paylineCheck extends Command
             }
 
         } else {
-            $transactions = Transaction::all();
+            $start_date = $this->option('start');
+            $transactions = Transaction::where('step', '!=', 'PAID')->where('type', '!=', 'REFUND');
+            if($start_date)
+            {
+                $transactions->where('created_at', '>=', \DateTime::createFromFormat('Y-m-d', $start_date));
+            }
+            $transactions = $transactions->get();
             $this->info(count($transactions) . ' transactions.');
             $this->info('Lancement de la tentative de résolution avec Payline');
 
@@ -78,7 +84,26 @@ class paylineCheck extends Command
                         $updated++;
                     }
                     // Vérification des incohérences
-
+                    switch ($tr['result']['shortMessage'])
+                    {
+                        case 'ACCEPTED':
+                            $this->error('#'.$transaction->id.' STEP: '.$transaction->step. ' SHOULD BE ACCEPTED');
+                            break;
+                        case 'CANCELLED':
+                            //Transaction expiré
+                            if($transaction->step != 'CANCELED')
+                            {
+                                $this->error('#'.$transaction->id.' STEP: '.$transaction->step. ' SHOULD BE CANCELED');
+                            }
+                            break;
+                        case 'ERROR':
+                        case 'REFUSED':
+                            if($transaction->step != 'REFUSED')
+                            {
+                                $this->error('#'.$transaction->id.' STEP: '.$transaction->step. ' SHOULD BE REFUSED');
+                            }
+                            break;
+                    }
                 }
 
                 $this->output->progressAdvance();
