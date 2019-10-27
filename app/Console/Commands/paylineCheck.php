@@ -64,8 +64,8 @@ class paylineCheck extends Command
             }
 
         } else {
-            $transactions = Transaction::where('step', 'INITIALISED')->get();
-            $this->info(count($transactions) . ' transaction initialisé.');
+            $transactions = Transaction::all();
+            $this->info(count($transactions) . ' transactions.');
             $this->info('Lancement de la tentative de résolution avec Payline');
 
             $this->output->progressStart(count($transactions));
@@ -73,8 +73,12 @@ class paylineCheck extends Command
                 $tr = $paylineProvider->getTransaction($transaction->id);
                 if ($tr) {
                     $this->info('Processing callback transaction ' . $transaction->id);
-                    $this->processTransaction($transaction, $tr);
-                    $updated++;
+                    if ($transaction->step == 'INITIALISED') {
+                        $this->processTransaction($transaction, $tr);
+                        $updated++;
+                    }
+                    // Vérification des incohérences
+
                 }
 
                 $this->output->progressAdvance();
@@ -91,17 +95,9 @@ class paylineCheck extends Command
         $transaction->bank_transaction_id = $tr['transaction']['id'];
         $transaction->provider = 'Payline';
 
-        switch ($tr['result']['code'])
+        switch ($tr['result']['shortMessage'])
         {
-            case '00000': // Accepted
-            case '02400':
-            case '02500':
-            case '02501':
-            case '02517':
-            case '02520':
-            case '02616':
-            case '03000':
-            case '04000':
+            case 'ACCEPTED':
                 if($tr['payment']['amount'] != $transaction->amount)
                 {
                     throw new \Exception('Discordance in transaction amount');
@@ -111,13 +107,20 @@ class paylineCheck extends Command
                 }
                 $transaction->callbackAccepted();
                 break;
-            case '02324':
+            case 'CANCELLED':
+            case 'ERROR':
                 //Transaction expiré
                 $transaction->step = 'CANCELED';
                 $transaction->save();
                 break;
-            default:
+            case 'REFUSED':
                 $transaction->callbackRefused();
+                break;
+            case 'INPROGRESS':
+            case 'ONHOLD_PARTNER':
+            case 'PENDING_RISK':
+                $this->info('#'.$transaction->id.' '.$tr['result']['shortMessage'].' '.$tr['result']['longMessage']);
+                break;
 
         }
         $transaction->save();
