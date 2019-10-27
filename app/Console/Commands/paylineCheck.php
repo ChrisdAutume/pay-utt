@@ -108,11 +108,11 @@ class paylineCheck extends Command
                 $transaction->callbackAccepted();
                 break;
             case 'CANCELLED':
-            case 'ERROR':
                 //Transaction expiré
                 $transaction->step = 'CANCELED';
                 $transaction->save();
                 break;
+            case 'ERROR':
             case 'REFUSED':
                 $transaction->callbackRefused();
                 break;
@@ -121,7 +121,6 @@ class paylineCheck extends Command
             case 'PENDING_RISK':
                 $this->info('#'.$transaction->id.' '.$tr['result']['shortMessage'].' '.$tr['result']['longMessage']);
                 break;
-
         }
         $transaction->save();
     }

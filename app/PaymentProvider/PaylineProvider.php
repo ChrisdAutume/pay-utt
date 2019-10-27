@@ -69,7 +69,7 @@ class PaylineProvider implements PaymentGateway
             'orderRef' => null,
             'startDate' => $date,
             'endDate' => $date,
-            'contractNumber' => config('payment.payline.contract_number'),
+            'contractNumber' => null,
             'authorizationNumber' => null,
             'returnCode' => null,
             'paymentMean' => null,
@@ -204,32 +204,32 @@ class PaylineProvider implements PaymentGateway
         $transaction->bank_transaction_id = $req['transaction']['id'];
         $transaction->provider = $this->getName();
 
-        switch ($req['result']['code']) {
-            case '00000': // Accepted
-            case '02400':
-            case '02500':
-            case '02501':
-            case '02517':
-            case '02520':
-            case '02616':
-            case '03000':
-            case '04000':
-                if ($req['payment']['amount'] != $transaction->amount) {
+        switch ($req['result']['shortMessage'])
+        {
+            case 'ACCEPTED':
+                if($req['payment']['amount'] != $transaction->amount)
+                {
                     throw new \Exception('Discordance in transaction amount');
                     $transaction->save();
-                    Log::critical('Discordance in transaction amount ' . $transaction->id);
+                    $this->error('Discordance in transaction amount '.$transaction->id);
                     return false;
                 }
                 $transaction->callbackAccepted();
                 break;
-            case '02324':
+            case 'CANCELLED':
                 //Transaction expiré
                 $transaction->step = 'CANCELED';
                 $transaction->save();
                 break;
-            default:
+            case 'ERROR':
+            case 'REFUSED':
                 $transaction->callbackRefused();
-
+                break;
+            case 'INPROGRESS':
+            case 'ONHOLD_PARTNER':
+            case 'PENDING_RISK':
+                $this->info('#'.$transaction->id.' '.$req['result']['shortMessage'].' '.$req['result']['longMessage']);
+                break;
         }
 
         Log::info('Processing callback transaction ' . $transaction->id);
