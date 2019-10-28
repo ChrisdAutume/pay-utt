@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://github.com/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://etupay.dev/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<h1>Transaction management</h1>
+<p>APIs for managing transactions</p>
+<!-- START_da1b9a43a9a92a6dbfcbc69b4d7ac89f -->
+<h2>Update transaction parameters</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PUT "http://etupay.dev/api/v1/transaction/1/selfUpdate" \
+    -H "Content-Type: application/json" \
+    -d '{"firstname":"molestiae","lastname":"ex","client_mail":"laborum"}'
+</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;put("api/v1/transaction/1/selfUpdate", [
+    'headers' =&gt; [
+            "Content-Type" =&gt; "application/json",
+        ],
+    'json' =&gt; [
+            "firstname" =&gt; "molestiae",
+            "lastname" =&gt; "ex",
+            "client_mail" =&gt; "laborum",
+        ],
+]);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://etupay.dev/api/v1/transaction/1/selfUpdate");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "firstname": "molestiae",
+    "lastname": "ex",
+    "client_mail": "laborum"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PUT api/v1/transaction/{InitialisedTransactionUUID}/selfUpdate</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>firstname</td>
+<td>string</td>
+<td>required</td>
+<td>Transaction user firstname</td>
+</tr>
+<tr>
+<td>lastname</td>
+<td>string</td>
+<td>required</td>
+<td>Transaction user lastname</td>
+</tr>
+<tr>
+<td>client_mail</td>
+<td>string</td>
+<td>required</td>
+<td>Transaction user email</td>
+</tr>
+</tbody>
+</table>
+<!-- END_da1b9a43a9a92a6dbfcbc69b4d7ac89f -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>
