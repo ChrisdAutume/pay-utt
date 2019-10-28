@@ -31,6 +31,14 @@ class Service extends GraphQLType
                 'type' => GraphQL::type('Fundation'),
                 'description' => 'The fundation of the service'
             ],
+            'transactions' => [
+                'type' => Type::listOf(GraphQL::type('Transaction')),
+                'description' => 'List of transactions'
+            ],
+            'api_key' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Service api key'
+            ],
             'return_url' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Redirection URL when transaction finished.'

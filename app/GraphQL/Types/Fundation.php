@@ -12,7 +12,8 @@ class Fundation extends GraphQLType
 {
     protected $attributes = [
         'name' => 'Fundation',
-        'description' => 'Fundation is like a groupe of service (associations ...)'
+        'description' => 'Fundation is like a groupe of service (associations ...)',
+        'model' => \App\Models\Fundation::class
     ];
 
     public function fields(): array

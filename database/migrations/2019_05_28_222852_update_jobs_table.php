@@ -13,11 +13,14 @@ class UpdateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::table('jobs', function (Blueprint $table) {
-            $table->dropColumn('reserved');
-            $table->dropIndex(['queue', 'reserved', 'reserved_at']);
-            $table->index('queue');
-        });
+        if(Schema::hasColumn('jobs', 'reserved'))
+        {
+            Schema::table('jobs', function (Blueprint $table) {
+                $table->dropColumn('reserved');
+                $table->dropIndex(['queue', 'reserved', 'reserved_at']);
+                $table->index('queue');
+            });
+        }
     }
 
     /**
