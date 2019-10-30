@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Service;
+use App\Models\RefundTransaction;
 use Closure;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -12,23 +12,23 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Query;
 
-class ServicesQuery extends Query
+class RefundTransactionsQuery extends Query
 {
     protected $attributes = [
-        'name' => 'ServiceQuery',
-        'description' => 'Query service data'
+        'name' => 'RefundTransactionsQuery',
+        'description' => 'Query transaction data'
     ];
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('Service'));
+        return GraphQL::paginate('RefundTransaction');
     }
 
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::int()],
-            'email' => ['name' => 'email', 'type' => Type::string()]
+            'limit' => ['name' => 'limit', 'type' => Type::int()],
+            'page' => ['name' => 'page', 'type' => Type::int()],
         ];
     }
 
@@ -38,17 +38,9 @@ class ServicesQuery extends Query
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
-
-        $services = Service::select($select)->with($with);
-
-        if (isset($args['id'])) {
-            $services = $services->where('id' , $args['id']);
-        }
-
-        if (isset($args['email'])) {
-            $services = $services->where('email', $args['email']);
-        }
-
-        return $services->get();
+        return RefundTransaction
+            ::with($with)
+            ->select($select)
+            ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }

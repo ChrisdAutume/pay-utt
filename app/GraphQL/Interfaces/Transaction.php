@@ -14,6 +14,7 @@ class Transaction extends InterfaceType
     protected $attributes = [
         'name' => 'Transaction',
         'description' => 'Implement transaction skelet',
+        'model' => \App\Models\Transaction::class
     ];
 
     public function resolveType($root)

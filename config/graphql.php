@@ -2,10 +2,20 @@
 
 declare(strict_types=1);
 
-use example\Type\ExampleType;
-use example\Query\ExampleQuery;
-use example\Mutation\ExampleMutation;
-use example\Type\ExampleRelationType;
+use App\GraphQL\Enums\Step;
+use App\GraphQL\Enums\TransactionType;
+use App\GraphQL\Interfaces\Transaction;
+use App\GraphQL\Queries\AutorisationTransactionsQuery;
+use App\GraphQL\Queries\ImmediateTransactionsQuery;
+use App\GraphQL\Queries\RefundTransactionsQuery;
+use App\GraphQL\Queries\ServicesQuery;
+use App\GraphQL\Types\Article;
+use App\GraphQL\Types\AutorisationTransaction;
+use App\GraphQL\Types\Fundation;
+use App\GraphQL\Types\ImmediateTransaction;
+use App\GraphQL\Types\RefundTransaction;
+use App\GraphQL\Types\Report;
+use App\GraphQL\Types\Service;
 
 return [
 
@@ -102,6 +112,10 @@ return [
         'default' => [
             'query' => [
                 // 'example_query' => ExampleQuery::class,
+                ServicesQuery::class,
+                AutorisationTransactionsQuery::class,
+                RefundTransactionsQuery::class,
+                ImmediateTransactionsQuery::class,
             ],
             'mutation' => [
                 // 'example_mutation'  => ExampleMutation::class,
@@ -121,6 +135,17 @@ return [
     // ]
     //
     'types' => [
+        Step::class,
+        TransactionType::class,
+
+        Transaction::class,
+        Article::class,
+        AutorisationTransaction::class,
+        Fundation::class,
+        ImmediateTransaction::class,
+        RefundTransaction::class,
+        Report::class,
+        Service::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,

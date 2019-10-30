@@ -20,8 +20,10 @@
         "monext/payline-sdk": "4.*",
         "mpociot/laravel-apidoc-generator": "^3.8",
         "paypal/rest-api-sdk-php": "*",
+        "predis/predis": "^1.1",
         "ramsey/uuid": "^3.7",
         "rebing/graphql-laravel": "^3.1",
+        "shipping-docker/vessel": "^4.1",
         "tymon/jwt-auth": "dev-develop"
     },
     "require-dev": {

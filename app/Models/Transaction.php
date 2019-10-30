@@ -36,8 +36,12 @@ class Transaction extends Model implements Transformable
     {
         return false;
     }
-
     public function children()
+    {
+        //DEPRECATED
+        return $this->childrens();
+    }
+    public function childrens()
     {
         return $this->hasMany('App\Models\Transaction', 'parent', 'id');
     }
@@ -64,6 +68,11 @@ class Transaction extends Model implements Transformable
             }
         }
         return $solde;
+    }
+
+    public function getSoldeAttribute(): float
+    {
+        return $this->getSolde();
     }
 
     public function callbackAccepted()
@@ -167,21 +176,26 @@ class Transaction extends Model implements Transformable
 
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        switch ($attributes->type) {
-            case 'PAYMENT':
-                $model = new ImmediateTransaction([], true);
-                break;
+        if(!isset($attributes->type))
+        {
+            $model = $this->newInstance([], true);
+        } else {
+            switch ($attributes->type) {
+                case 'PAYMENT':
+                    $model = new ImmediateTransaction([], true);
+                    break;
 
-            case 'AUTHORISATION':
-                $model = new AuthorisationTransaction([], true);
-                break;
+                case 'AUTHORISATION':
+                    $model = new AuthorisationTransaction([], true);
+                    break;
 
-            case 'REFUND':
-                $model = new RefundTransaction([], true);
-                break;
+                case 'REFUND':
+                    $model = new RefundTransaction([], true);
+                    break;
 
-            default:
-                $model = $this->newInstance([], true);
+                default:
+                    $model = $this->newInstance([], true);
+            }
         }
 
         $model->setRawAttributes((array) $attributes, true);

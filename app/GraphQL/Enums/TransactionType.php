@@ -9,7 +9,7 @@ use Rebing\GraphQL\Support\EnumType;
 class TransactionType extends EnumType
 {
     protected $attributes = [
-        'name' => 'Transaction Type',
+        'name' => 'TransactionType',
         'description' => 'Types of a transaction',
         'values' => [
             'PAYMENT' => [

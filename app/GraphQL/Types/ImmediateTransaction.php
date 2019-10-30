@@ -17,9 +17,8 @@ class ImmediateTransaction extends GraphQLType
 
     public function fields(): array
     {
-        return [
-
-        ];
+        $interface = GraphQL::type('Transaction');
+        return $interface->getFields();
     }
 
     public function interfaces(): array

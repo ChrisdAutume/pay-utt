@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Transaction;
+use App\Models\ImmediateTransaction;
 use Closure;
 use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -12,22 +12,22 @@ use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\SelectFields;
 use Rebing\GraphQL\Support\Query;
 
-class TransactionsQuery extends Query
+class ImmediateTransactionsQuery extends Query
 {
     protected $attributes = [
-        'name' => 'Transaction Query',
+        'name' => 'ImmediateTransactionsQuery',
         'description' => 'Query transaction data'
     ];
 
     public function type(): Type
     {
-        return GraphQL::paginate('Transaction');
+        return GraphQL::paginate('ImmediateTransaction');
     }
 
     public function args(): array
     {
         return [
-            'limit' => ['name' => 'id', 'type' => Type::int()],
+            'limit' => ['name' => 'limit', 'type' => Type::int()],
             'page' => ['name' => 'page', 'type' => Type::int()],
         ];
     }
@@ -38,10 +38,9 @@ class TransactionsQuery extends Query
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
-
-        return Transaction
-            ::with($fields->getRelations())
-            ->select($fields->getSelect())
+        return ImmediateTransaction
+            ::with($with)
+            ->select($select)
             ->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
 }
