@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "~6.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "mll-lab/laravel-graphql-playground": "^1.1",
         "monext/payline-sdk": "4.*",
         "mpociot/laravel-apidoc-generator": "^3.8",
         "paypal/rest-api-sdk-php": "*",

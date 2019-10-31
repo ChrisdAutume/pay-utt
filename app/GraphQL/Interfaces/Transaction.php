@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Interfaces;
 
+use App\Models\AuthorisationTransaction;
+use App\Models\ImmediateTransaction;
+use App\Models\RefundTransaction;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Facades\GraphQL;
@@ -19,16 +22,15 @@ class Transaction extends InterfaceType
 
     public function resolveType($root)
     {
-        $type = $root['type'];
-        switch ($type)
+        switch (true)
         {
-            case 'PAYMENT':
+            case $root instanceof ImmediateTransaction:
                 return GraphQL::type('ImmediateTransaction');
                 break;
-            case 'AUTHORISATION':
+            case $root instanceof AuthorisationTransaction:
                 return GraphQL::type('AutorisationTransaction');
                 break;
-            case 'REFUND':
+            case $root instanceof RefundTransaction:
                 return GraphQL::type('RefundTransaction');
                 break;
         }
@@ -46,7 +48,7 @@ class Transaction extends InterfaceType
                 'description' => 'Transaction UUID'
             ],
             'parent' => [
-                'type' => GraphQL::type('Transaction'),
+                'type' => GraphQL::type('ImmediateTransaction'),
                 'description' => 'Parent transaction (if exist)'
             ],
             'childrens' => [
@@ -124,6 +126,4 @@ class Transaction extends InterfaceType
     {
         return (string) $root->updated_at;
     }
-
-
 }
