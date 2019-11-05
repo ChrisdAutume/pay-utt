@@ -113,12 +113,11 @@ return [
             'query' => [
                 // 'example_query' => ExampleQuery::class,
                 ServicesQuery::class,
-                AutorisationTransactionsQuery::class,
-                RefundTransactionsQuery::class,
-                ImmediateTransactionsQuery::class,
+                \App\GraphQL\Queries\TransactionsQuery::class,
+                \App\GraphQL\Queries\TransactionQuery::class,
             ],
             'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
+                \App\GraphQL\Mutations\CreateRefundTransaction::class,
             ],
             'middleware' => [],
             'method'     => ['get', 'post'],

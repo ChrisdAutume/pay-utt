@@ -16,8 +16,7 @@ class Transaction extends InterfaceType
 {
     protected $attributes = [
         'name' => 'Transaction',
-        'description' => 'Implement transaction skelet',
-        'model' => \App\Models\Transaction::class
+        'description' => 'Implement transaction squelette'
     ];
 
     public function resolveType($root)
@@ -34,6 +33,7 @@ class Transaction extends InterfaceType
                 return GraphQL::type('RefundTransaction');
                 break;
         }
+        return response()->json($root);
     }
 
     public function fields(): array
@@ -48,12 +48,14 @@ class Transaction extends InterfaceType
                 'description' => 'Transaction UUID'
             ],
             'parent' => [
-                'type' => GraphQL::type('ImmediateTransaction'),
-                'description' => 'Parent transaction (if exist)'
+                'type' => GraphQL::type('Transaction'),
+                'description' => 'Parent transaction (if exist)',
+                'always' => ['type', 'id', 'amount'],
             ],
             'childrens' => [
                 'type' => Type::listOf(GraphQL::type('Transaction')),
-                'description' => 'Children transaction (if exist)'
+                'description' => 'Children transaction (if exist)',
+                'always' => ['type', 'id', 'amount'],
             ],
             'service' => [
                 'type' => GraphQL::type('Service'),
@@ -106,6 +108,11 @@ class Transaction extends InterfaceType
                 'type' => GraphQL::type('TransactionType'),
                 'description' => 'Type of the transaction',
             ],
+            'bank_explaination' => [
+                'type' => Type::string(),
+                'description' => 'Humanised bank report',
+                'selectable' => false,
+            ],
             'created_at' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Creation date of the transaction'
@@ -113,6 +120,11 @@ class Transaction extends InterfaceType
             'updated_at' => [
                 'type' => Type::nonNull(Type::string()),
                 'description' => 'Update date of the transaction'
+            ],
+            'is_real' => [
+                'type' => Type::boolean(),
+                'description' => 'Is the transaction real.',
+                'selectable' => false
             ]
 
         ];
@@ -125,5 +137,23 @@ class Transaction extends InterfaceType
     protected function resolveUpdatedAtField($root, $args)
     {
         return (string) $root->updated_at;
+    }
+
+    protected function resolveIsRealField($root, $args)
+    {
+        return (bool) $root->provider != 'Dev';
+    }
+
+    protected function resolveBankExplainationField($root, $args)
+    {
+        $msg = null;
+        if($root->getProvider())
+        try {
+            $msg = $root->getProvider()->getHumanisedReport($root);
+        } catch (\Exception $exception){
+            $msg = null;
+        };
+
+        return (string) $msg;
     }
 }

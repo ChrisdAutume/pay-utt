@@ -125,6 +125,8 @@ class PaylineProvider implements PaymentGateway
                 $transaction->callbackAccepted();
                 return $return;
             } else {
+                $transaction->data = json_encode($return);
+                $transaction->provider = $this->getName();
                 $transaction->callbackRefused();
                 Log::error("PaylineProvider - Refund - Transaction " . $transaction->id . " - " . $return['result']['code'] . ": " . $return['result']['longMessage']);
                 return false;

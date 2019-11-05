@@ -32,7 +32,7 @@ class Transaction extends Model implements Transformable
      * @param integer $amount
      * @return boolean
      */
-    public function doRefund(float $amount): bool
+    public function doRefund(float $amount)
     {
         return false;
     }
@@ -43,23 +43,27 @@ class Transaction extends Model implements Transformable
     }
     public function childrens()
     {
-        return $this->hasMany('App\Models\Transaction', 'parent', 'id');
+        return $this->hasMany('App\Models\Transaction', 'parent_id', 'id');
     }
 
     public function parent()
     {
-        return $this->hasOne('App\Models\Transaction', 'id', 'parent');
+        return $this->hasOne('App\Models\Transaction', 'id', 'parent_id');
     }
 
     public function getSolde(): float
     {
+        $solde = 0;
         $tr = $this;
         if ($this->parent) {
             $tr = $this->parent;
         }
 
-        $solde = $tr->amount;
-        foreach ($tr->children as $child) {
+        if($tr->step == 'PAID')
+        {
+            $solde += $tr->amount;
+        }
+        foreach ($tr->childrens as $child) {
             if ($child instanceof ImmediateTransaction && $child->step == 'PAID') {
                 $solde += $child->amount;
             }

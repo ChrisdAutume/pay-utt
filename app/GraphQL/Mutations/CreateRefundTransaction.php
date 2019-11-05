@@ -2,28 +2,30 @@
 
 declare(strict_types=1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations;
 
 use App\Models\Service;
+use App\Models\Transaction;
 use Closure;
-use GraphQL\Type\Definition\Type;
 use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Facades\GraphQL;
+use Rebing\GraphQL\Support\Mutation;
 use Rebing\GraphQL\Support\SelectFields;
-use Rebing\GraphQL\Support\Query;
 
-class ServicesQuery extends Query
+class CreateRefundTransaction extends Mutation
 {
     protected $attributes = [
-        'name' => 'ServiceQuery',
-        'description' => 'Query service data'
+        'name' => 'CreateRefundTransaction',
+        'description' => 'Operation to initialiate a refund transaction'
     ];
 
     public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
     {
-        if (Auth::user() instanceof Service && isset($args['id'])) {
-            return Auth::id() == $args['id'];
+        $this->transaction = Transaction::findOrFail($args['parent_id']);
+        if (Auth::user() instanceof Service) {
+            return Auth::user()->id == $this->transaction->service_id;
         }
 
         return false;
@@ -31,33 +33,23 @@ class ServicesQuery extends Query
 
     public function type(): Type
     {
-        return Type::listOf(GraphQL::type('Service'));
+        return GraphQL::type('Transaction');
     }
 
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::int()],
+            'parent_id' => ['name' => 'parent_id', 'type' => Type::nonNull(Type::int())],
+            'amount' => ['name' => 'amount', 'type' => Type::nonNull(Type::int())]
         ];
     }
 
     public function resolve($root, $args, $context, ResolveInfo $resolveInfo, Closure $getSelectFields)
     {
-        /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        $services = Service::select($select)->with($with);
-
-        if (isset($args['id'])) {
-            $services = $services->where('id' , $args['id']);
-        }
-
-        if (isset($args['email'])) {
-            $services = $services->where('email', $args['email']);
-        }
-
-        return $services->get();
+        return $this->transaction->doRefund($args['amount']);
     }
 }
