@@ -39,9 +39,9 @@ class TransactionsQuery extends Query
     public function args(): array
     {
         return [
-            'limit' => ['name' => 'limit', 'type' => Type::int()],
-            'page' => ['name' => 'page', 'type' => Type::int()],
-            'service_id' => ['name' => 'service_id', 'type'=> Type::int()],
+            'limit' => ['name' => 'limit', 'type' => Type::int(), 'defaultValue' => 50],
+            'page' => ['name' => 'page', 'type' => Type::int(), 'defaultValue' => 1],
+            'service_id' => ['name' => 'service_id', 'type'=> Type::int(), 'defaultValue' => (Auth::user() instanceof Service?Auth::user()->id:null)],
             'step' => ['name' => 'step', 'type'=> GraphQL::type('Step')],
             'type' => ['name' => 'type', 'type'=> GraphQL::type('TransactionType')],
         ];
@@ -52,6 +52,7 @@ class TransactionsQuery extends Query
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
+        $select[] = 'transactions.type';
         $with = $fields->getRelations();
         $query = Transaction
             ::with($with)

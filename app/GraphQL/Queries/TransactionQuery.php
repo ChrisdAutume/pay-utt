@@ -41,7 +41,6 @@ class TransactionQuery extends Query
     {
         return [
             'id' => ['name' => 'id', 'type' => Type::nonNull(Type::int())],
-
         ];
     }
 
@@ -50,7 +49,9 @@ class TransactionQuery extends Query
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
+        $select[] = 'transactions.type';
         $with = $fields->getRelations();
+
         $query = Transaction
             ::with($with)
             ->select($select)

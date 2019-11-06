@@ -23,7 +23,7 @@ class ServicesQuery extends Query
     public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
     {
         if (Auth::user() instanceof Service && isset($args['id'])) {
-            return Auth::id() == $args['id'];
+            return Auth::user()->id == $args['id'];
         }
 
         return false;
@@ -37,7 +37,7 @@ class ServicesQuery extends Query
     public function args(): array
     {
         return [
-            'id' => ['name' => 'id', 'type' => Type::int()],
+            'id' => ['name' => 'id', 'type' => Type::int(), 'defaultValue' => (Auth::user() instanceof Service?Auth::user()->id:null)],
         ];
     }
 
@@ -47,15 +47,10 @@ class ServicesQuery extends Query
         $fields = $getSelectFields();
         $select = $fields->getSelect();
         $with = $fields->getRelations();
-
         $services = Service::select($select)->with($with);
 
         if (isset($args['id'])) {
             $services = $services->where('id' , $args['id']);
-        }
-
-        if (isset($args['email'])) {
-            $services = $services->where('email', $args['email']);
         }
 
         return $services->get();
