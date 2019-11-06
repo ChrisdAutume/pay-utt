@@ -32,30 +32,38 @@ class Transaction extends Model implements Transformable
      * @param integer $amount
      * @return boolean
      */
-    public function doRefund(float $amount): bool
+    public function doRefund(float $amount)
     {
         return false;
     }
-
     public function children()
     {
-        return $this->hasMany('App\Models\Transaction', 'parent', 'id');
+        //DEPRECATED
+        return $this->childrens();
+    }
+    public function childrens()
+    {
+        return $this->hasMany('App\Models\Transaction', 'parent_id', 'id');
     }
 
     public function parent()
     {
-        return $this->hasOne('App\Models\Transaction', 'id', 'parent');
+        return $this->hasOne('App\Models\Transaction', 'id', 'parent_id');
     }
 
     public function getSolde(): float
     {
+        $solde = 0;
         $tr = $this;
         if ($this->parent) {
             $tr = $this->parent;
         }
 
-        $solde = $tr->amount;
-        foreach ($tr->children as $child) {
+        if($tr->step == 'PAID')
+        {
+            $solde += $tr->amount;
+        }
+        foreach ($tr->childrens as $child) {
             if ($child instanceof ImmediateTransaction && $child->step == 'PAID') {
                 $solde += $child->amount;
             }
@@ -64,6 +72,11 @@ class Transaction extends Model implements Transformable
             }
         }
         return $solde;
+    }
+
+    public function getSoldeAttribute(): float
+    {
+        return $this->getSolde();
     }
 
     public function callbackAccepted()
@@ -167,21 +180,26 @@ class Transaction extends Model implements Transformable
 
     public function newFromBuilder($attributes = [], $connection = null)
     {
-        switch ($attributes->type) {
-            case 'PAYMENT':
-                $model = new ImmediateTransaction([], true);
-                break;
+        if(!isset($attributes->type))
+        {
+            $model = $this->newInstance([], true);
+        } else {
+            switch ($attributes->type) {
+                case 'PAYMENT':
+                    $model = new ImmediateTransaction([], true);
+                    break;
 
-            case 'AUTHORISATION':
-                $model = new AuthorisationTransaction([], true);
-                break;
+                case 'AUTHORISATION':
+                    $model = new AuthorisationTransaction([], true);
+                    break;
 
-            case 'REFUND':
-                $model = new RefundTransaction([], true);
-                break;
+                case 'REFUND':
+                    $model = new RefundTransaction([], true);
+                    break;
 
-            default:
-                $model = $this->newInstance([], true);
+                default:
+                    $model = $this->newInstance([], true);
+            }
         }
 
         $model->setRawAttributes((array) $attributes, true);

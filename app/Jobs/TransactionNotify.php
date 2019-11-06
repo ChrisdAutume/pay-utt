@@ -59,19 +59,22 @@ class TransactionNotify extends Job implements ShouldQueue
                 break;
 
             case 'AUTHORISATION':
-                break;
-
             case 'REFUNDED':
                 break;
 
             case 'REFUSED':
-                $sujet = 'Échec de la transaction';
-                Mail::to($this->transaction->client_mail)->queue(new refusedTransaction($this->transaction, $sujet));
+                if (!$this->transaction instanceof RefundTransaction) {
+                    $sujet = 'Échec de la transaction';
+                    Mail::to($this->transaction->client_mail)->queue(new refusedTransaction($this->transaction, $sujet));
+                }
                 break;
 
             case 'CANCELED':
-                $sujet = 'Abandon de la transaction';
-                Mail::to($this->transaction->client_mail)->queue(new refusedTransaction($this->transaction, $sujet));
+                if (!$this->transaction instanceof RefundTransaction) {
+                    $sujet = 'Abandon de la transaction';
+                    Mail::to($this->transaction->client_mail)->queue(new refusedTransaction($this->transaction, $sujet));
+                }
+
                 break;
         }
 

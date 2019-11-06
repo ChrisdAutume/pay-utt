@@ -15,7 +15,7 @@ class ImmediateTransaction extends Transaction
     /**
      * Refactor, old function to get AtosParameter
      *
-     * @return void
+     * @return void|array
      */
     public function getAtosParameter()
     {
@@ -35,9 +35,9 @@ class ImmediateTransaction extends Transaction
      * Order a refund order based on amount order
      *
      * @param integer $amount
-     * @return boolean
+     * @return RefundTransaction|bool
      */
-    public function doRefund(float $amount): bool
+    public function doRefund(float $amount)
     {
         $amount = intval($amount);
         if ($amount <= 0 || $amount > $this->getSolde()) {
@@ -51,9 +51,9 @@ class ImmediateTransaction extends Transaction
         $refund_tr = new RefundTransaction();
 
         if (!$this->parent) {
-            $refund_tr->parent = $this->id;
+            $refund_tr->parent_id = $this->id;
         } else {
-            $refund_tr->parent = $this->parent;
+            $refund_tr->parent_id = $this->parent_id;
         }
 
         $refund_tr->amount = $amount;
@@ -63,6 +63,6 @@ class ImmediateTransaction extends Transaction
             return true;
         }
 
-        return false;
+        return $refund_tr;
     }
 }
