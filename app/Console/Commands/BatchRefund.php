@@ -51,7 +51,8 @@ class BatchRefund extends Command
 
             if ($tr) {
                 if ($tr->getSolde() > 0 && $tr instanceof ImmediateTransaction) {
-                    if ($tr->doRefund($tr->getSolde())) {
+                    $op = $tr->doRefund($tr->getSolde());
+                    if ($op->step == 'PAID') {
                         $this->info(' #' . $id . ' solde: ' . round($tr->getSolde() / 100, 2) . ' € remboursé !');
                     } else {
                         $this->error(' #' . $id . ' solde: ' . round($tr->getSolde() / 100, 2) . ' € ERREUR !');

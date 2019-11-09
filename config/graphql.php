@@ -145,6 +145,7 @@ return [
         RefundTransaction::class,
         Report::class,
         Service::class,
+        \App\GraphQL\Scalars\DateTimeType::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
         // \Rebing\GraphQL\Support\UploadType::class,

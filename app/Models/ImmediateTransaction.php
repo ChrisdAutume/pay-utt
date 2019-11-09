@@ -58,11 +58,7 @@ class ImmediateTransaction extends Transaction
 
         $refund_tr->amount = $amount;
         $refund_tr->save();
-
-        if ($this->getProvider()->doRefund($refund_tr)) {
-            return true;
-        }
-
+        $refund_tr = $this->getProvider()->doRefund($refund_tr);
         return $refund_tr;
     }
 }

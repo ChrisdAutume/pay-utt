@@ -118,21 +118,25 @@ class PaylineProvider implements PaymentGateway
             $param['comment'] = 'Remboursement automatisé';
 
             $return = $this->sdk->doRefund($param);
-            if ($return['result']['code'] == '00000') {
+            if ($return['result']['shortMessage'] == 'ACCEPTED') {
                 $transaction->data = json_encode($return);
                 $transaction->provider = $this->getName();
                 $transaction->bank_transaction_id = $return['transaction']['id'];
                 $transaction->callbackAccepted();
-                return $return;
+                return $transaction;
             } else {
                 $transaction->data = json_encode($return);
                 $transaction->provider = $this->getName();
                 $transaction->callbackRefused();
                 Log::error("PaylineProvider - Refund - Transaction " . $transaction->id . " - " . $return['result']['code'] . ": " . $return['result']['longMessage']);
-                return false;
+                return $transaction;
             }
         } else {
-            return false;
+            $transaction->provider = $this->getName();
+            $transaction->step = 'REFUSED';
+            $transaction->save();
+            Log::error("PaylineProvider - Refund - Transaction " . $transaction->id . " -  REFUSED");
+            return $transaction;
         }
 
     }

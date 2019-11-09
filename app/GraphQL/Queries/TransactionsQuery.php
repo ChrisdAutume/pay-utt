@@ -44,6 +44,12 @@ class TransactionsQuery extends Query
             'service_id' => ['name' => 'service_id', 'type'=> Type::int(), 'defaultValue' => (Auth::user() instanceof Service?Auth::user()->id:null)],
             'step' => ['name' => 'step', 'type'=> GraphQL::type('Step')],
             'type' => ['name' => 'type', 'type'=> GraphQL::type('TransactionType')],
+            'start' => ['name' => 'start', 'type'=> GraphQL::type('DateTimeType')],
+            'end' => ['name' => 'end', 'type'=> GraphQL::type('DateTimeType')],
+            'amount' => ['name' => 'amount', 'type' => Type::int()],
+            'firstname' => ['name' => 'firstname', 'type' => Type::string()],
+            'lastname' => ['name' => 'lastname', 'type' => Type::string()],
+            'mail' => ['name' => 'mail', 'type' => Type::string()],
         ];
     }
 
@@ -69,6 +75,30 @@ class TransactionsQuery extends Query
         if(isset($args['type']))
         {
             $query = $query->where('type', $args['type']);
+        }
+        if(isset($args['start']))
+        {
+            $query = $query->where('created_at', '>=',  $args['start']);
+        }
+        if(isset($args['end']))
+        {
+            $query = $query->where('created_at', '<',  $args['end']);
+        }
+        if(isset($args['amount']))
+        {
+            $query = $query->where('amount', $args['amount']);
+        }
+        if(isset($args['mail']))
+        {
+            $query = $query->where('mail', $args['mail']);
+        }
+        if(isset($args['firstname']))
+        {
+            $query = $query->where('firstname', 'like', '%'. $args['firstname'].'%');
+        }
+        if(isset($args['lastname']))
+        {
+            $query = $query->where('lastname', 'like', '%'. $args['lastname'].'%');
         }
         return $query->paginate($args['limit'], ['*'], 'page', $args['page']);
     }
