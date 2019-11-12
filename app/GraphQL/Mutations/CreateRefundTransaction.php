@@ -25,8 +25,8 @@ class CreateRefundTransaction extends Mutation
     {
         $this->transaction = Transaction::findOrFail($args['parent_id']);
         if (Auth::user() instanceof Service) {
-            return Auth::user()->id == $this->transaction->service_id;
-        }
+        return Auth::user()->id == $this->transaction->service_id;
+    }
 
         return false;
     }
