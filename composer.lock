@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "233e1e81e8c46fce41a552dbddba5dd7",
+    "content-hash": "f58fc853f122aa001b293c2f1a8400a5",
     "packages": [
         {
             "name": "alsofronie/eloquent-uuid",
@@ -1699,24 +1699,27 @@
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
-            "version": "v1.1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphql-playground.git",
-                "reference": "8b238625a0e432746ddada9ae87406e7cfdc326b"
+                "reference": "83e8586bf4a08d76de6b3ebaecf96cb4afaa1d62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphql-playground/zipball/8b238625a0e432746ddada9ae87406e7cfdc326b",
-                "reference": "8b238625a0e432746ddada9ae87406e7cfdc326b",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphql-playground/zipball/83e8586bf4a08d76de6b3ebaecf96cb4afaa1d62",
+                "reference": "83e8586bf4a08d76de6b3ebaecf96cb4afaa1d62",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.1.0",
-                "php": ">=7"
+                "illuminate/console": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/contracts": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "illuminate/support": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.12"
+                "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0",
+                "localheinz/composer-normalize": "^1.3"
             },
             "type": "library",
             "extra": {
@@ -1747,7 +1750,7 @@
                 "graphql-playground",
                 "laravel"
             ],
-            "time": "2019-07-05T12:09:26+00:00"
+            "time": "2019-11-13T07:52:34+00:00"
         },
         {
             "name": "mnapoli/front-yaml",
@@ -6994,7 +6997,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3",
+        "php": ">=7.1",
         "ext-soap": "*"
     },
     "platform-dev": []
