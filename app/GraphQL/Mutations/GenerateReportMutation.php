@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Jobs\createReport;
 use App\Models\Report;
 use App\Models\Service;
 use App\Models\Transaction;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
@@ -17,6 +19,8 @@ use Rebing\GraphQL\Support\SelectFields;
 
 class GenerateReportMutation extends Mutation
 {
+    use DispatchesJobs;
+
     protected $attributes = [
         'name' => 'GenerateReport',
         'description' => 'Generate a new etupay report.'
@@ -33,7 +37,7 @@ class GenerateReportMutation extends Mutation
 
     public function type(): Type
     {
-        return GraphQL::type('Report');
+        return Type::boolean();
     }
 
     public function args(): array
@@ -51,26 +55,9 @@ class GenerateReportMutation extends Mutation
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        $trs = Transaction::where('service_id', $args['service_id'])->whereIsNull('report_id');
-        if(isset($args['start']))
-        {
-            $trs = $trs->where('created_at', '>=',  $args['start']);
-        }
-        if(isset($args['end']))
-        {
-            $trs = $trs->where('created_at', '<',  $args['end']);
-        }
+        $service = Service::find($args['service_id']);
+        $this->dispatch(new createReport($service, (isset($args['start'])?$args['start']:null), (isset($args['end'])?$args['end']:null)));
 
-        $trs = $trs->get();
-
-        if($trs->count = 0)
-            return [];
-
-        $report = new Report();
-        $report->service_id = $args['service_id'];
-        $report->transactions = $trs;
-        $report->save();
-
-        return $report;
+        return true;
     }
 }

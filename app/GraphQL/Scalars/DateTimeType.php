@@ -51,7 +51,11 @@ class DateTimeType extends ScalarType implements TypeConvertible
      */
     public function parseValue($value)
     {
-        return \DateTime::createFromFormat($this->dateFormat, $value);
+        $date = \DateTime::createFromFormat($this->dateFormat, $value);
+        if($date == false)
+            throw new Exception("Error mapping to DateTime ".$this->dateFormat);
+
+        return $date;
     }
 
     /**

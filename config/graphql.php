@@ -118,6 +118,7 @@ return [
             ],
             'mutation' => [
                 \App\GraphQL\Mutations\CreateRefundTransaction::class,
+                \App\GraphQL\Mutations\GenerateReportMutation::class,
             ],
             'middleware' => [],
             'method'     => ['get', 'post'],

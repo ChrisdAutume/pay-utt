@@ -49,6 +49,7 @@ class ImmediateTransaction extends Transaction
         }
 
         $refund_tr = new RefundTransaction();
+        $refund_tr->service_id = $this->service_id;
 
         if (!$this->parent) {
             $refund_tr->parent_id = $this->id;
