@@ -90,7 +90,7 @@ class TransactionsQuery extends Query
         }
         if(isset($args['mail']))
         {
-            $query = $query->where('mail', $args['mail']);
+            $query = $query->where('client_mail', $args['mail']);
         }
         if(isset($args['firstname']))
         {
