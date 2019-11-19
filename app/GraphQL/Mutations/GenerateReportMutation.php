@@ -4,43 +4,48 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Jobs\createReport;
+use App\Models\Report;
 use App\Models\Service;
 use App\Models\Transaction;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
 use Rebing\GraphQL\Support\SelectFields;
 
-class CreateRefundTransaction extends Mutation
+class GenerateReportMutation extends Mutation
 {
+    use DispatchesJobs;
+
     protected $attributes = [
-        'name' => 'CreateRefundTransaction',
-        'description' => 'Operation to initialiate a refund transaction'
+        'name' => 'GenerateReport',
+        'description' => 'Generate a new etupay report.'
     ];
 
     public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
     {
-        $this->transaction = Transaction::findOrFail($args['parent_id']);
         if (Auth::user() instanceof Service) {
-        return Auth::user()->id == $this->transaction->service_id;
-    }
+            return Auth::user()->id == $args['service_id'];
+        }
 
         return false;
     }
 
     public function type(): Type
     {
-        return GraphQL::type('Transaction');
+        return Type::boolean();
     }
 
     public function args(): array
     {
         return [
-            'parent_id' => ['name' => 'parent_id', 'type' => Type::nonNull(Type::int())],
-            'amount' => ['name' => 'amount', 'type' => Type::nonNull(Type::int())]
+            'service_id' => ['name' => 'service_id', 'type'=> Type::nonNull(Type::int()), 'defaultValue' => (Auth::user() instanceof Service?Auth::user()->id:null)],
+            'start' => ['name' => 'start', 'type'=> GraphQL::type('DateTimeType')],
+            'end' => ['name' => 'end', 'type'=> GraphQL::type('DateTimeType')],
         ];
     }
 
@@ -50,6 +55,9 @@ class CreateRefundTransaction extends Mutation
         $select = $fields->getSelect();
         $with = $fields->getRelations();
 
-        return $this->transaction->doRefund($args['amount']);
+        $service = Service::find($args['service_id']);
+        $this->dispatch(new createReport($service, (isset($args['start'])?$args['start']:null), (isset($args['end'])?$args['end']:null)));
+
+        return true;
     }
 }
