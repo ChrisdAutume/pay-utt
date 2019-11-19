@@ -54,7 +54,9 @@ class createReport extends Command
         $end = $this->ask('Date de fin ('.$this->dateFormat.'): ', null);
         $end = \DateTime::createFromFormat($this->dateFormat, $start);
 
-        $this->dispatch(new \App\Jobs\createReport($service,($start?$start:null),($end?$end:null)));
+        $sendReport = $this->ask('Envoyer par mail ? [y/n]', 'y');
+
+        $this->dispatch(new \App\Jobs\createReport($service,($start?$start:null),($end?$end:null), ($sendReport == 'y')));
         $this->info('Création du report programmé');
     }
 }

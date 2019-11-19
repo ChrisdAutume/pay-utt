@@ -15,17 +15,18 @@ class createReport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $service, $start, $end;
+    protected $service, $start, $end, $sendReport;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Service $service, \DateTime $start = null, \DateTime $end = null)
+    public function __construct(Service $service, \DateTime $start = null, \DateTime $end = null, bool $sendReport = false)
     {
         $this->service = $service;
         $this->start = $start;
         $this->end = $end;
+        $this->sendReport = $sendReport;
     }
 
     /**
@@ -66,7 +67,8 @@ class createReport implements ShouldQueue
         $report->refreshAmount();
         $report->save();
 
-        $report->sendReport();
+        if($this->sendReport)
+            $report->sendReport();
 
     }
 }
