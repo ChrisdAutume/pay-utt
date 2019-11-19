@@ -32,6 +32,6 @@ class refusedTransaction extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.refused')->with(['transaction' => $this->transaction, 'sujet' => $this->subject]);
+        return $this->view('emails.refused')->with(['transaction' => $this->transaction, 'sujet' => $this->subject])->replyTo($this->transaction->service->fundation->mail, $this->transaction->service->fundation->name);
     }
 }

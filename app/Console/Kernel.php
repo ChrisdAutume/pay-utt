@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\BatchRefund;
+use App\Console\Commands\createReport;
 use App\Console\Commands\paylineCheck;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -20,7 +21,8 @@ class Kernel extends ConsoleKernel
         Commands\ListService::class,
         Commands\EnableService::class,
         BatchRefund::class,
-        paylineCheck::class
+        paylineCheck::class,
+        createReport::class,
     ];
 
     /**
