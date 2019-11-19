@@ -49,7 +49,8 @@ class ReportExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
             'Date de création',
             'Nom',
             'Prénom',
-            'Mail'
+            'Mail',
+            'Retour banque',
         ];
     }
 
@@ -70,6 +71,7 @@ class ReportExport implements FromQuery, WithHeadings, WithMapping, WithColumnFo
             $row->firstname,
             $row->lastname,
             $row->client_mail,
+            $row->getProvider()->getHumanisedReport($row),
         ];
     }
 
