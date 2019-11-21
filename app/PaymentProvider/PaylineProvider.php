@@ -14,6 +14,7 @@ use Payline\PaylineSDK;
 class PaylineProvider implements PaymentGateway
 {
     private $sdk;
+    protected $returnCodeNoMail = ['02324'];
 
     public function __construct()
     {
@@ -209,6 +210,9 @@ class PaylineProvider implements PaymentGateway
         $transaction->data = json_encode($req);
         $transaction->bank_transaction_id = $req['transaction']['id'];
         $transaction->provider = $this->getName();
+        $sendMail = true;
+        if(in_array($req['result']['code'], $this->returnCodeNoMail))
+            $sendMail = false;
 
         switch ($req['result']['shortMessage'])
         {
@@ -229,7 +233,7 @@ class PaylineProvider implements PaymentGateway
                 break;
             case 'ERROR':
             case 'REFUSED':
-                $transaction->callbackRefused();
+                $transaction->callbackRefused($sendMail);
                 break;
             case 'INPROGRESS':
             case 'ONHOLD_PARTNER':

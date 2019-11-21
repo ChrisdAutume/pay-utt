@@ -79,21 +79,23 @@ class Transaction extends Model implements Transformable
         return $this->getSolde();
     }
 
-    public function callbackAccepted()
+    public function callbackAccepted($send_mail = true)
     {
         $this->step = 'PAID';
         $this->save();
 
-        dispatch(new TransactionNotify($this));
+        if($send_mail)
+            dispatch(new TransactionNotify($this));
         dispatch(new TransactionClientNotify($this));
     }
 
-    public function callbackRefused()
+    public function callbackRefused($send_mail = true)
     {
         $this->step = 'REFUSED';
         $this->save();
 
-        dispatch(new TransactionNotify($this));
+        if($send_mail)
+            dispatch(new TransactionNotify($this));
         dispatch(new TransactionClientNotify($this));
     }
 
@@ -102,21 +104,23 @@ class Transaction extends Model implements Transformable
      *
      * @return void
      */
-    public function callbackRefunded()
+    public function callbackRefunded($send_mail = true)
     {
         $this->step = 'REFUNDED';
         $this->save();
 
-        dispatch(new TransactionNotify($this));
+        if($send_mail)
+            dispatch(new TransactionNotify($this));
         dispatch(new TransactionClientNotify($this));
     }
 
-    public function callbackCanceled()
+    public function callbackCanceled($send_mail = true)
     {
         $this->step = 'CANCELED';
         $this->save();
 
-        dispatch(new TransactionNotify($this));
+        if($send_mail)
+            dispatch(new TransactionNotify($this));
         dispatch(new TransactionClientNotify($this));
     }
 
