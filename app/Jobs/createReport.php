@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Classes\Dolibarr;
 use App\Models\Report;
 use App\Models\Service;
 use App\Models\Transaction;
@@ -70,5 +71,8 @@ class createReport implements ShouldQueue
         if($this->sendReport)
             $report->sendReport();
 
+        // Now let's create report
+        $d = new Dolibarr();
+        $d->createSupplierInvoice($report);
     }
 }

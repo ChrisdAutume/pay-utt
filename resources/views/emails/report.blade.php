@@ -48,6 +48,10 @@
                                     <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;" align="left">Vous trouverez ci-joint le rapport etupay #{{ $report->id }} du service {{ $report->service->host }}.</p>
                                     <br>
                                     <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;" align="left">Ce rapport est composé de {{ $report->transactions->count() }} transactions pour un total effectif de {{ $report->amount/100 }}€.</p>
+                                    @if($report->bank_fee)
+                                        <p><p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;" align="left">Des frais de service d'un montant de {{ $report->bank_fee/100 }}€ seront facturés.</p>
+                                        </p>
+                                    @endif
                                     <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;" align="left">Si vous avez des questions à propos de ce mail, contactez le trésorier du bde.</p>
                                     <p style="box-sizing: border-box; color: #74787E; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 16px; line-height: 1.5em; margin-top: 0;" align="left">A bientôt,
                                         <br />L'équipe du BDE</p>

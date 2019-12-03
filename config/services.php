@@ -48,4 +48,11 @@ return [
         'exception_webhook' => env('SLACK_EXCEPTION_WEBHOOK', ''),
     ],
 
+    'picsou' => [
+        'base_url' => env('PICSOU_BASE_URL', 'https://picsou.uttnetgroup.fr'),
+        'api_key' => env('PICSOU_API_KEY'),
+        'default_society' => env('PICSOU_SOCIETY_DEFAULT', 109),
+        'default_project' => env('PICSOU_INVOICE_PROJECT', 106),
+    ]
+
 ];
