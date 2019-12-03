@@ -49,7 +49,7 @@ class Dolibarr
         {
             $order_lines[] = [
                 "desc"		=> 'Frais de service',
-                "subprice"	=> floatval($report->bank_fee),
+                "subprice"	=> floatval($report->bank_fee/100),
                 "qty"		=> 1,
                 "tva_tx"	=> floatval(0),
             ];

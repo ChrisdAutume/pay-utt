@@ -345,4 +345,14 @@ class PaylineProvider implements PaymentGateway
             return "Echec de la transaction, raison: " . $trs->result->longMessage;
         }
     }
+
+    public function getTransactionFee(Transaction $transaction): int
+    {
+        $fee = 0.1*100;
+        if($this->step == 'PAID')
+        {
+            $fee += $transaction->amount * 0.025;
+        }
+        return intval($fee);
+    }
 }

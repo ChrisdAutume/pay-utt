@@ -154,4 +154,9 @@ class AtosProvider implements PaymentGateway
     {
         return "Transaction via ATOS";
     }
+
+    public function getTransactionFee(Transaction $transaction): int
+    {
+        return 0;
+    }
 }

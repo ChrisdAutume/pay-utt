@@ -17,4 +17,6 @@ interface PaymentGateway
 
     public function getHumanisedReport(Transaction $transaction);
 
+    public function getTransactionFee(Transaction $transaction): int;
+
 }

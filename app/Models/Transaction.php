@@ -244,4 +244,11 @@ class Transaction extends Model implements Transformable
         return TransactionTransformer::class;
     }
 
+    public function getBankFee(): int
+    {
+        if($p = $this->getProvider())
+            return $p->getTransactionFee($this);
+        return 0;
+    }
+
 }

@@ -23,11 +23,12 @@ class Report extends Model
     public function refreshAmount()
     {
         $solde = 0;
+        $bank_fee = 0;
         foreach($this->transactions as $transaction)
         {
+            $bank_fee += $transaction->getBankFee();
             if($transaction->step != 'PAID')
                 continue;
-
             switch (true)
             {
                 case $transaction instanceof ImmediateTransaction:
@@ -39,6 +40,7 @@ class Report extends Model
             }
         }
         $this->amount = $solde;
+        $this->bank_fee = $bank_fee;
     }
     public function transactions()
     {

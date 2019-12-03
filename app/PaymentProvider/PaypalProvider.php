@@ -160,4 +160,8 @@ class PaypalProvider implements PaymentGateway
         return "Transaction paypal n°" . $trs->id;
     }
 
+    public function getTransactionFee(Transaction $transaction): int
+    {
+        return 0;
+    }
 }

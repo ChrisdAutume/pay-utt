@@ -50,4 +50,9 @@ class DevProvider implements PaymentGateway
     {
         return "Validation en mode dev, cette transaction n'est pas réelle.";
     }
+
+    public function getTransactionFee(Transaction $transaction): int
+    {
+        return 0;
+    }
 }
