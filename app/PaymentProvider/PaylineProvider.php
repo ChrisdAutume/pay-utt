@@ -349,7 +349,7 @@ class PaylineProvider implements PaymentGateway
     public function getTransactionFee(Transaction $transaction): int
     {
         $fee = 0.1*100;
-        if($this->step == 'PAID')
+        if($transaction->step == 'PAID')
         {
             $fee += $transaction->amount * 0.025;
         }
