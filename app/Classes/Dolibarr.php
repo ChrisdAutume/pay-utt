@@ -75,7 +75,7 @@ class Dolibarr
         if (isset($json['error']))
             return false;
         else{
-            $report->picsou_society_id = intval($json);
+            $report->picsou_id = intval($json);
             $report->save();
             return $report;
         }
