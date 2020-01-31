@@ -64,7 +64,7 @@ class Dolibarr
             'fk_project' => config('services.picsou.default_project'),
         ];
         try {
-            $response = $this->client->post('api/index.php/invoices', [
+            $response = $this->client->post('api/index.php/supplierinvoices', [
                 'form_params' => $order
             ]);
         } catch (GuzzleException $e) {
