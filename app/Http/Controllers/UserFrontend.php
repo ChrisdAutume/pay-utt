@@ -26,7 +26,7 @@ class UserFrontend extends Controller
     public function paylineCallback(Request $request)
     {
         $provider = new PaylineProvider();
-        if ($transaction = $provider->processCallback($request->input('paylinetoken'))) {
+        if ($transaction = $provider->processCallback($request->input('token'))) {
             $payload = PaymentLoader::encryptFromService($transaction->service, $transaction->callbackReturn());
             return redirect($transaction->service->return_url . '?payload=' . $payload);
         }
