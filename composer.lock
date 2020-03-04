@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "233e1e81e8c46fce41a552dbddba5dd7",
+    "content-hash": "050e4d5023f8caba4c965b9069547471",
     "packages": [
         {
             "name": "alsofronie/eloquent-uuid",
@@ -1699,24 +1699,27 @@
         },
         {
             "name": "mll-lab/laravel-graphql-playground",
-            "version": "v1.1.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphql-playground.git",
-                "reference": "8b238625a0e432746ddada9ae87406e7cfdc326b"
+                "reference": "ed03cb7374bd05c931ac9087e2c30d8bcf06c8bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphql-playground/zipball/8b238625a0e432746ddada9ae87406e7cfdc326b",
-                "reference": "8b238625a0e432746ddada9ae87406e7cfdc326b",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphql-playground/zipball/ed03cb7374bd05c931ac9087e2c30d8bcf06c8bb",
+                "reference": "ed03cb7374bd05c931ac9087e2c30d8bcf06c8bb",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.1.0",
-                "php": ">=7"
+                "illuminate/console": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0 || ^7.0",
+                "illuminate/contracts": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0 || ^7.0",
+                "illuminate/support": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0 || ^7.0",
+                "php": ">=7.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.12"
+                "laravel/lumen-framework": "5.5.* || 5.6.* || 5.7.* || 5.8.* || ^6.0 || ^7.0",
+                "localheinz/composer-normalize": "^1.3"
             },
             "type": "library",
             "extra": {
@@ -1747,7 +1750,7 @@
                 "graphql-playground",
                 "laravel"
             ],
-            "time": "2019-07-05T12:09:26+00:00"
+            "time": "2020-03-03T15:31:22+00:00"
         },
         {
             "name": "mnapoli/front-yaml",
@@ -3061,17 +3064,17 @@
             ],
             "authors": [
                 {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
+                },
+                {
                     "name": "Marijn Huizendveld",
                     "email": "marijn.huizendveld@gmail.com"
                 },
                 {
                     "name": "Thibaud Fabre",
                     "email": "thibaud@aztech.io"
-                },
-                {
-                    "name": "Ben Ramsey",
-                    "email": "ben@benramsey.com",
-                    "homepage": "https://benramsey.com"
                 }
             ],
             "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
@@ -6994,8 +6997,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3",
-        "ext-soap": "*"
+        "php": ">=7.1",
+        "ext-soap": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
