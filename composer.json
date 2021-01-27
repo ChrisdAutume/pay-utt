@@ -15,7 +15,7 @@
         "fideloper/proxy": "^4.0",
         "flugger/laravel-responder": "^3.0",
         "guzzlehttp/guzzle": "~6.0",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "6.20.*",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "mll-lab/laravel-graphql-playground": "^1.1",
